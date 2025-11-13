@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "542540991527",
+    "project_id": "login-4e9a7",
+    "storage_bucket": "login-4e9a7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542540991527:android:8bf9de9d5209b1c0959202",
+        "android_client_info": {
+          "package_name": "com.example.firebase_phone_auth_sample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJoJa3JGiSr8vSQD2szAY-tsgTB6uLc60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542540991527:android:7ef13b8a219ae27b959202",
+        "android_client_info": {
+          "package_name": "com.ralfiz.login_page"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJoJa3JGiSr8vSQD2szAY-tsgTB6uLc60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542540991527:android:7563884f659da582959202",
+        "android_client_info": {
+          "package_name": "com.rfs.ndjd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJoJa3JGiSr8vSQD2szAY-tsgTB6uLc60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
