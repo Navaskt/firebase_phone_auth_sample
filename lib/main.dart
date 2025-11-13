@@ -65,7 +65,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
   Future<void> _sendCode() async {
     final raw = _phoneController.text.trim();
 
-    // Make sure the phone number is in E.164 format, e.g. +9715XXXXXXXX
+    // You must use E.164 format. For UAE: +9715XXXXXXXX
     if (raw.isEmpty || !raw.startsWith('+')) {
       _showMessage('Enter phone number with country code, e.g. +9715XXXXXXXX');
       return;
@@ -77,29 +77,18 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
     });
 
     try {
-      await _auth.verifyPhoneNumber(
+      await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: raw,
         timeout: const Duration(seconds: 60),
-
         verificationCompleted: (PhoneAuthCredential credential) async {
-          // Auto-retrieval or instant verification
-          try {
-            await _auth.signInWithCredential(credential);
-            final user = _auth.currentUser;
-            _showMessage('Auto login success. UID: ${user?.uid}');
-          } on FirebaseAuthException catch (e) {
-            _showMessage('Auto login failed: ${e.message}');
-            debugPrint('verificationCompleted error code: ${e.code}');
-            debugPrint('verificationCompleted error message: ${e.message}');
-          }
+          await FirebaseAuth.instance.signInWithCredential(credential);
+          _showMessage('Auto verification success, you are signed in.');
         },
-
         verificationFailed: (FirebaseAuthException e) {
+          debugPrint('verificationFailed code: ${e.code}');
+          debugPrint('verificationFailed message: ${e.message}');
           _showMessage('Verification failed: ${e.message}');
-          debugPrint('phoneAuth verificationFailed code: ${e.code}');
-          debugPrint('phoneAuth verificationFailed message: ${e.message}');
         },
-
         codeSent: (String verificationId, int? resendToken) {
           setState(() {
             _verificationId = verificationId;
@@ -107,16 +96,11 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
           });
           _showMessage('Code sent. Check your SMS.');
         },
-
         codeAutoRetrievalTimeout: (String verificationId) {
           _verificationId = verificationId;
-          debugPrint('codeAutoRetrievalTimeout: $verificationId');
+          debugPrint('timeout: $verificationId');
         },
       );
-    } catch (e, st) {
-      debugPrint('Error in verifyPhoneNumber: $e');
-      debugPrint('$st');
-      _showMessage('Error while sending code.');
     } finally {
       setState(() => _loading = false);
     }
