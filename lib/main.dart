@@ -82,9 +82,16 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
         timeout: const Duration(seconds: 60),
 
         verificationCompleted: (PhoneAuthCredential credential) async {
-          // Auto verification on some Android devices
-          await _auth.signInWithCredential(credential);
-          _showMessage('Auto verification success. You are signed in.');
+          // Auto-retrieval or instant verification
+          try {
+            await _auth.signInWithCredential(credential);
+            final user = _auth.currentUser;
+            _showMessage('Auto login success. UID: ${user?.uid}');
+          } on FirebaseAuthException catch (e) {
+            _showMessage('Auto login failed: ${e.message}');
+            debugPrint('verificationCompleted error code: ${e.code}');
+            debugPrint('verificationCompleted error message: ${e.message}');
+          }
         },
 
         verificationFailed: (FirebaseAuthException e) {
